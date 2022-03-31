@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "hardhat": "^2.9.1"
+  },
+  "dependencies": {
+    "ganache-cli": "^6.12.2",
+    "truffle": "^5.5.6"
+  }
+}

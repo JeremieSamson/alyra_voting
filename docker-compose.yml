@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  truffle:
+    build: ./docker/truffle
+    tty: true
+    volumes:
+      - .:/app
+
+  ganache:
+    build: ./docker/ganache
+    tty: true
+    ports:
+      - 8585:8585
