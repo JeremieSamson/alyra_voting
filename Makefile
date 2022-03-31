@@ -33,8 +33,8 @@ sh:
 	$(EXEC) sh
 
 node_modules:
-	$(NPM) install truffle
-	$(NPM) install --save-dev solidity-coverage
+	$(NPM) install -g truffle
+	#$(NPM) install --save-dev solidity-coverage
 
 ganache:
 	$(GANACHE)
