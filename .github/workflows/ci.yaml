@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,11 +16,6 @@ jobs:
 
       - name: Install modules
         run: make node_modules
-
-  test:
-    needs: [build]
-    steps:
-      - uses: actions/checkout@v2
 
       - name: Run truffle tests
         run: make truffle-test
