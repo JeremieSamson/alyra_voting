@@ -9,6 +9,5 @@ services:
 
   ganache:
     build: ./docker/ganache
-    tty: true
     ports:
       - 8585:8585

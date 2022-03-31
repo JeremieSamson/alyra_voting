@@ -9,13 +9,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build
-        run: make build
+        run: CI=TRUE make build
 
       - name: Up containers
         run: make up
 
       - name: Install modules
-        run: make node_modules
+        run: make node_modules TTY=-T
 
       - name: Run truffle tests
-        run: make truffle-test
+        run: make truffle-test TTY=-T

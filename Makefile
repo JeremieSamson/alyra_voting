@@ -1,5 +1,5 @@
 DOCKER_COMPOSE?=docker-compose
-EXEC?=$(DOCKER_COMPOSE) exec truffle
+EXEC?=$(DOCKER_COMPOSE) exec $(TTY) truffle
 NODE?=node
 GANACHE?=/app/ganache-core.docker.cli.js
 TRUFFLE?=$(EXEC) truffle
