@@ -1,8 +1,6 @@
 name: CI
 
-on:
-  pull_request:
-    branches: [ main ]
+on: push
 
 jobs:
   build:
@@ -10,8 +8,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build & Install
-        run: make install
+      - name: Build
+        run: make build
 
-      - name: Tests
+      - name: Up containers
+        run: make up
+
+      - name: Install modules
+        run: make node_modules
+
+  test:
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run truffle tests
         run: make truffle-test
