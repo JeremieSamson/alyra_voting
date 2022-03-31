@@ -8,14 +8,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build
-        run: CI=TRUE make build
+      - name: Setup NodeJS 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
 
-      - name: Up containers
-        run: make up
+      - name: Install Truffle
+        run: npm install truffle@5.4.29 -g # cannot use truffle@latest due to https://github.com/sc-forks/solidity-coverage/issues/696
 
-      - name: Install modules
-        run: make node_modules TTY=-T
+      - name: Install Truffle Dependencies
+        run: npm install
 
       - name: Run truffle tests
-        run: make truffle-test TTY=-T
+        run: truffle test
+
+      - name: Run Test Coverage
+        run: truffle run coverage

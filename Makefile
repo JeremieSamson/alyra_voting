@@ -27,17 +27,14 @@ reset: stop install
 install: up
 	$(DOCKER_COMPOSE) up -d
 
-.PHONY: ganache truffle-init truffle-migrate truffle-test
+.PHONY: ganache truffle-init truffle-migrate truffle-test node_modules
 
 sh:
 	$(EXEC) sh
 
 node_modules:
-	$(NPM) install -g truffle
-	#$(NPM) install --save-dev solidity-coverage
-
-ganache:
-	$(GANACHE)
+	$(NPM) install
+	$(NPM) install -g truffle@5.4.32
 
 truffle-init: truffle-config.js
 
