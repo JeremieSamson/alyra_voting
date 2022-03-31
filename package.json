@@ -1,6 +1,7 @@
 {
   "devDependencies": {
-    "hardhat": "^2.9.1"
+    "hardhat": "^2.9.1",
+    "solidity-coverage": "^0.7.20"
   },
   "dependencies": {
     "ganache-cli": "^6.12.2",

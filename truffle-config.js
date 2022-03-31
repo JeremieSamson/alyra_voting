@@ -1,4 +1,4 @@
-const HDWalletProvider = require('@truffle/hdwallet-provider');
+//const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
@@ -72,4 +72,6 @@ module.exports = {
       }
     }
   },
+
+  plugins: ["solidity-coverage"]
 };

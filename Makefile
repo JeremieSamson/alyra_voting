@@ -34,6 +34,7 @@ sh:
 
 node_modules:
 	$(NPM) install truffle
+	$(NPM) install --save-dev solidity-coverage
 
 ganache:
 	$(GANACHE)
@@ -47,5 +48,11 @@ truffle-config.js:
 truffle-migrate:
 	$(TRUFFLE) migrate
 
+truffle-migrate-reset:
+	$(TRUFFLE) migrate --reset
+
 truffle-test:
 	$(TRUFFLE) test
+
+truffle-coverage:
+	$(TRUFFLE) run coverage
