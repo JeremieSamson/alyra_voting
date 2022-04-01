@@ -1,9 +1,10 @@
 {
   "devDependencies": {
-    "hardhat": "^2.9.1",
-    "solidity-coverage": "^0.7.20"
+    "hardhat": "^2.9.1"
   },
   "dependencies": {
+    "@openzeppelin/contracts": "^4.5.0",
+    "@openzeppelin/test-helpers": "^0.5.15",
     "ganache-cli": "^6.12.2",
     "truffle": "^5.4.32"
   }
