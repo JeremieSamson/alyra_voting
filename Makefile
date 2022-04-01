@@ -4,6 +4,7 @@ NODE?=node
 GANACHE?=/app/ganache-core.docker.cli.js
 TRUFFLE?=$(EXEC) truffle
 NPM?=$(EXEC) npm
+NPX?=$(EXEC) truffle
 
 .PHONY: build
 
@@ -51,4 +52,4 @@ truffle-test:
 	$(TRUFFLE) test
 
 truffle-coverage:
-	$(TRUFFLE) run coverage
+	$(NPX) run coverage
