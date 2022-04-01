@@ -22,7 +22,7 @@ jobs:
 
       - name: Run SmartBugs Analysis
         run: |
-          solidityFiles=($(ls -I Migrations.sol contracts))
+          solidityFiles=($(ls -I contracts))
           DIR=$(pwd);cd smartbugs
           for sol in "${solidityFiles[@]}"
           do
