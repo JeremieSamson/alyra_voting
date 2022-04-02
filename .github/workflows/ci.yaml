@@ -14,6 +14,9 @@ jobs:
       - name: Up containers
         run: make up
 
+      - name: Install modules
+        run: make node_modules TTY=-T
+
       - name: Run ESLint
         run: make lint TTY=-T
 
@@ -30,7 +33,7 @@ jobs:
         run: npm install
 
       - name: Launch Ganache
-        run: npx ganache-cli -h 127.0.0.1
+        run: npx ganache-cli -h 127.0.0.1&
 
       - name: Run truffle tests
         run: npx truffle test
