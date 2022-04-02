@@ -53,7 +53,7 @@ truffle-test:
 	$(TRUFFLE) test
 
 truffle-coverage:
-	$(NPM) run coverage
+	$(DOCKER_COMPOSE) exec coverage npx truffle run coverage
 
 lint:
 	$(ESLINT) . --ext .js

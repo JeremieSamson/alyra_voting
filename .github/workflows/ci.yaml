@@ -15,7 +15,7 @@ jobs:
         run: make up
 
       - name: Run ESLint
-        run: make lint
+        run: make lint TTY=-T
 
   coverage:
     runs-on: ubuntu-latest
@@ -28,6 +28,9 @@ jobs:
 
       - name: Install
         run: npm install
+
+      - name: Run truffle tests
+        run: npx truffle test
 
       - name: Coverage
         run: npx truffle run coverage

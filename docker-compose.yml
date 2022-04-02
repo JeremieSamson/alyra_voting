@@ -11,3 +11,9 @@ services:
     build: ./docker/ganache
     ports:
       - 8585:8585
+
+  coverage:
+    image: node:12-alpine
+    tty: true
+    volumes:
+      - .:/app
