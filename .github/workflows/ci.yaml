@@ -3,6 +3,17 @@ name: CI
 on: [push]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install modules
+        run: yarn
+
+      - name: Run ESLint
+        run: eslint . --ext .js
+
   coverage:
     runs-on: ubuntu-latest
     steps:
@@ -20,9 +31,9 @@ jobs:
 
       - name: Coveralls
         run: |
-        curl -Os https://uploader.codecov.io/latest/linux/codecov
-        chmod +x codecov
-        ./codecov
+        curl -Os https://uploader.codecov.io/latest/linux/codecov \
+        chmod +x codecov \
+        ./codecov \
 
   test:
     runs-on: ubuntu-latest
