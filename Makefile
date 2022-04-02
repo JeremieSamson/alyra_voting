@@ -52,4 +52,4 @@ truffle-test:
 	$(TRUFFLE) test
 
 truffle-coverage:
-	$(NPX) run coverage
+	$(NPM) run coverage

@@ -3,34 +3,26 @@ name: CI
 on: [push]
 
 jobs:
-  lint:
+  coverage:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup Python 3.8
-        uses: actions/setup-python@v2
+      - uses: actions/setup-node@v3
         with:
-          python-version: 3.8 # Version range or exact version of a Python version to use, using SemVer's version range syntax
-          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
-      - name: Show Python version
-        run: python --version
+          node-version: '10'
 
-      - name: Clone SmartBugs Repo
-        run: git clone https://github.com/smartbugs/smartbugs.git
+      - name: Install
+        run: npm install
 
-      - name: Remove SmartBugs Results and Install SmartBugs Dependencies
-        run: cd smartbugs;rm -r results;pip install -r requirements.txt
+      - name: Coverage
+        run: npx truffle run coverage
 
-      - name: Run SmartBugs Analysis
+      - name: Coveralls
         run: |
-          solidityFiles=($(ls contracts))
-          DIR=$(pwd);cd smartbugs
-          for sol in "${solidityFiles[@]}"
-          do
-            echo "Analysing $sol..."
-            python smartBugs.py --tool all --file $DIR/contracts/$sol
-          done
+        curl -Os https://uploader.codecov.io/latest/linux/codecov
+        chmod +x codecov
+        ./codecov
 
   test:
     runs-on: ubuntu-latest
