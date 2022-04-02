@@ -36,10 +36,10 @@ jobs:
         run: npx ganache-cli -h 127.0.0.1&
 
       - name: Run truffle tests
-        run: npx truffle test --network docker
+        run: npx truffle test
 
       - name: Coverage
-        run: d
+        run: npx truffle run coverage
 
       - name: Coveralls
         uses: coverallsapp/github-action@master
