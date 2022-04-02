@@ -57,3 +57,6 @@ truffle-coverage:
 
 lint:
 	$(ESLINT) . --ext .js
+
+lintfix:
+	$(ESLINT) . --ext .js --fix
