@@ -5,6 +5,7 @@ GANACHE?=/app/ganache-core.docker.cli.js
 TRUFFLE?=$(EXEC) truffle
 NPM?=$(EXEC) npm
 NPX?=$(EXEC) truffle
+SOLIUM?=$(EXEC) ./node_modules/.bin/solium
 ESLINT?=$(EXEC) ./node_modules/.bin/eslint
 
 .PHONY: build
@@ -55,8 +56,16 @@ truffle-test:
 truffle-coverage:
 	$(DOCKER_COMPOSE) exec coverage npx truffle run coverage
 
-lint:
+lint: eslint solium
+
+solium:
+	$(SOLIUM) --dir ./contracts/
+
+solium:
+	$(SOLIUM) --dir ./contracts/ --fix
+
+esnlint:
 	$(ESLINT) . --ext .js
 
-lintfix:
+eslintfix:
 	$(ESLINT) . --ext .js --fix

@@ -17,7 +17,7 @@ jobs:
       - name: Install modules
         run: make node_modules TTY=-T
 
-      - name: Run ESLint
+      - name: Run esnlint and solium
         run: make lint TTY=-T
 
   coverage:
