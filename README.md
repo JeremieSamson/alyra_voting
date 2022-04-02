@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/JeremieSamson/alyra_voting/badge.svg)](https://coveralls.io/github/JeremieSamson/alyra_voting)
+
 # Files
 
 ```
