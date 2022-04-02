@@ -30,10 +30,9 @@ jobs:
         run: npx truffle run coverage
 
       - name: Coveralls
-        run: |
-        curl -Os https://uploader.codecov.io/latest/linux/codecov \
-        chmod +x codecov \
-        ./codecov \
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   test:
     runs-on: ubuntu-latest
