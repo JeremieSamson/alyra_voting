@@ -44,13 +44,13 @@ truffle-config.js:
 	$(TRUFFLE) init
 
 truffle-migrate:
-	$(TRUFFLE) migrate
+	$(TRUFFLE) migrate --network docker
 
 truffle-migrate-reset:
-	$(TRUFFLE) migrate --reset
+	$(TRUFFLE) migrate --network docker --reset
 
 truffle-test:
-	$(TRUFFLE) test
+	$(TRUFFLE) test --network docker
 
 truffle-coverage:
 	$(DOCKER_COMPOSE) exec coverage npx truffle run coverage

@@ -29,6 +29,9 @@ jobs:
       - name: Install
         run: npm install
 
+      - name: Launch Ganache
+        run: npx ganache-cli -h 127.0.0.1
+
       - name: Run truffle tests
         run: npx truffle test
 
