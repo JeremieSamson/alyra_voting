@@ -8,11 +8,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install modules
-        run: yarn
+      - name: Build
+        run: make build
+
+      - name: Up containers
+        run: make up
 
       - name: Run ESLint
-        run: eslint . --ext .js
+        run: make lint
 
   coverage:
     runs-on: ubuntu-latest
@@ -21,7 +24,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: '10'
+          node-version: '12'
 
       - name: Install
         run: npm install

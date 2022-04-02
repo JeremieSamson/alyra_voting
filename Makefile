@@ -5,6 +5,7 @@ GANACHE?=/app/ganache-core.docker.cli.js
 TRUFFLE?=$(EXEC) truffle
 NPM?=$(EXEC) npm
 NPX?=$(EXEC) truffle
+ESLINT?=$(EXEC) ./node_modules/.bin/eslint
 
 .PHONY: build
 
@@ -53,3 +54,6 @@ truffle-test:
 
 truffle-coverage:
 	$(NPM) run coverage
+
+lint:
+	$(ESLINT) . --ext .js
