@@ -2,10 +2,11 @@ const { expectRevert, expectEvent, BN } = require('@openzeppelin/test-helpers')
 const { expect } = require('chai')
 const Voting = artifacts.require('Voting')
 
-contract('Voting', function (accounts) {
+contract('Voting contract tests suite', function (accounts) {
     const owner = accounts[0]
     const voter = accounts[1]
-    const noVoter = accounts[2]
+    const anotherVoter = accounts[2]
+    const unregisteredVoter = accounts[3]
 
     const proposalIdLoremIpsum = new BN(0)
     const proposalIdLoremDolor = new BN(1)
@@ -25,6 +26,52 @@ contract('Voting', function (accounts) {
 
         it('Ownership has been transferred', async function () {
             expect(await this.Voting.owner()).to.equal(owner)
+        })
+    })
+
+    describe('Get voter informations', () => {
+        before(async function () {
+            this.Voting = await Voting.new({ from: owner })
+            this.Voting.addVoter(voter)
+            this.Voting.addVoter(anotherVoter)
+        })
+
+        it('As a voter, I should not be able to get a vote if I am not registered', async function () {
+            await expectRevert(this.Voting.getVoter(voter, { from: unregisteredVoter }), 'You\'re not a voter')
+        })
+
+        it('As a voter, I should be able to get my own vote', async function () {
+            const ownVote = await this.Voting.getVoter(voter, { from: voter })
+            expect(ownVote.isRegistered).to.equal(true)
+            expect(ownVote.hasVoted).to.equal(false)
+            expect(ownVote.votedProposalId).to.be.bignumber.equal(defaultValue)
+        })
+
+        // A voter should not be able to do this, we may add a new require on the getter to let voters access only their own vote
+        it('As a voter, I should be able to get others vote', async function () {
+            const voteFromAnotherVoter = await this.Voting.getVoter(anotherVoter, { from: voter })
+            expect(voteFromAnotherVoter.isRegistered).to.equal(true)
+            expect(voteFromAnotherVoter.hasVoted).to.equal(false)
+            expect(voteFromAnotherVoter.votedProposalId).to.be.bignumber.equal(defaultValue)
+        })
+    })
+
+    describe('Get One proposal informations', () => {
+        before(async function () {
+            this.Voting = await Voting.new({ from: owner })
+            this.Voting.addVoter(voter)
+            this.Voting.startProposalsRegistering()
+            this.Voting.addProposal('Lorem Ipsum', { from: voter })
+        })
+
+        it('As a voter, I should not be able to get a proposal if I am not registered', async function () {
+            await expectRevert(this.Voting.getOneProposal(voter, { from: unregisteredVoter }), 'You\'re not a voter')
+        })
+
+        it('As a voter, I should be able to get a proposal informations', async function () {
+            const proposal = await this.Voting.getOneProposal(proposalIdLoremIpsum, { from: voter })
+            expect(proposal.description).to.equal('Lorem Ipsum')
+            expect(proposal.voteCount).to.be.bignumber.equal(defaultValue)
         })
     })
 
@@ -101,7 +148,7 @@ contract('Voting', function (accounts) {
         })
 
         it('Only the owner can add voters', async function () {
-            await expectRevert(this.Voting.addVoter(noVoter, { from: voter }), 'Ownable: caller is not the owner')
+            await expectRevert(this.Voting.addVoter(unregisteredVoter, { from: voter }), 'Ownable: caller is not the owner')
         })
 
         it('A voter can not access voters information if he has not been registered', async function () {
@@ -127,13 +174,13 @@ contract('Voting', function (accounts) {
 
     describe('As a voter, I should be able to add a proposal', () => {
         before(async function () {
-            this.Voting = await Voting.new()
+            this.Voting = await Voting.new({ from: owner })
             this.Voting.addVoter(voter)
             this.Voting.startProposalsRegistering()
         })
 
-        it('Only a voter can add a proposal', async function () {
-            await expectRevert(this.Voting.addProposal('foo', { from: noVoter }), 'You\'re not a voter')
+        it('Only a registered voter can add a proposal', async function () {
+            await expectRevert(this.Voting.addProposal('foo', { from: unregisteredVoter }), 'You\'re not a voter')
         })
 
         it('A voter can\'t add an empty proposal', async function () {
@@ -175,8 +222,8 @@ contract('Voting', function (accounts) {
             this.Voting.endProposalsRegistering()
         })
 
-        it('Only a voter can vote', async function () {
-            await expectRevert(this.Voting.setVote(proposalIdLoremDolor, { from: noVoter }), 'You\'re not a voter')
+        it('Only a registered voter can vote', async function () {
+            await expectRevert(this.Voting.setVote(proposalIdLoremDolor, { from: unregisteredVoter }), 'You\'re not a voter')
         })
 
         it('A voter can\'t vote on a wrong status', async function () {

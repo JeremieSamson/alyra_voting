@@ -37,6 +37,7 @@ sh:
 
 node_modules:
 	$(NPM) install
+	$(NPM) install -g truffle@5.5.7
 
 truffle-init: truffle-config.js
 

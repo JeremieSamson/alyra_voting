@@ -37,9 +37,9 @@ truffle migrate
 truffle test
 ```
 
-![](docs/images/test.gif)
+![](docs/images/functional_tests.gif)
 
-- 28 tests passing
+- 33 tests passing
 - Every functions are tested 
 
 ### VotingTest.js
@@ -49,7 +49,18 @@ truffle test
 - ✔ Contract ownership
 - ✔ Ownership has been transferred
 
-### 2. As the owner, I should be able to update the workflow status
+#### 2. Get voter informations
+
+- ✔ As a voter, I should not be able to get a vote if I am not registered
+- ✔ As a voter, I should be able to get my own vote
+- ✔ As a voter, I should be able to get others vote ⚠️
+
+#### 3. Get One proposal informations
+
+- ✔ As a voter, I should not be able to get a proposal if I am not registered
+- ✔ As a voter, I should be able to get a proposal informations
+
+### 4. As the owner, I should be able to update the workflow status
 
 - ✔ The workflow status must start with RegisteringVoters
 - ✔ Only startProposalsRegistering can be done with RegisteringVoters status
@@ -61,21 +72,21 @@ truffle test
 - ✔ Only startVotingSession can be done with ProposalsRegistrationEnded status
 - ✔ The workflow status must start with VotingSessionStarted status
 
-### 3. As the owner, I should be able to add voters
+### 5. As the owner, I should be able to add voters
 
 - ✔ Only the owner can add voters
 - ✔ A voter can not access voters information if he has not been registered
 - ✔ A voter can be registered
 - ✔ An address could not be registered more than once
 
-### 4. As a voter, I should be able to add a proposal
+### 6. As a voter, I should be able to add a proposal
 
 - ✔ Only a voter can add a proposal
 - ✔ A voter can't add an empty proposal
 - ✔ A voter can add a proposal
 - ✔ A voter can add another proposal
 
-### 5. As a voter, I should be able to vote
+### 7. As a voter, I should be able to vote
 
 - ✔ Only a voter can vote
 - ✔ A voter can't vote on a wrong status
@@ -83,7 +94,7 @@ truffle test
 - ✔ A voter can vote on an existing proposal
 - ✔ A proposal should be incremented after a vote
 
-### 6. As the owner, I should be able to tally
+### 8. As the owner, I should be able to tally
 
 - ✔ Only the owner can tally
 - ✔ A owner can't tally on a wrong status

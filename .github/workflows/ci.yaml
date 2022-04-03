@@ -60,8 +60,5 @@ jobs:
       - name: Install modules
         run: make node_modules TTY=-T
 
-      - name: Install truffle globaly
-        run: docker-compose exec -T node npm install -g truffle@5.5.7
-
       - name: Run truffle tests
         run: make truffle-test TTY=-T
