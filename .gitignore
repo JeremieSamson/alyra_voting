@@ -1,4 +1,4 @@
 docker-dev.lock
 .idea
-./build
+build
 node_modules
