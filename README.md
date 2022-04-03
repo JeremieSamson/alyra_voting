@@ -1,78 +1,108 @@
-# Files
+# Installation
+
+First you need to clone the project 
 
 ```
-.
-├── contracts               # Contract files
-├──── Voting.sol            # File to review
-├──── VotingCi.sol          # Same file only use for tests (visibility changed from external to public)
-├── docs                    # Documentation files
-├── test                    # Unit tests
-├── LICENSE
-└── README.md
+git clone git@github.com:JeremieSamson/alyra_voting.git
 ```
 
-# Tests
+Then you will need to install the project dependencies, if you are familiar with docker there is a [special instruction file](docs/docker.md) for it.
 
-Les tests ont été rédigés et executé sur Remix sur le contrat `VotingForTU.sol`, la seul différence avec Voting.sol est la visibilité des fonctions (`external` => `public`)
+## Dependencies
 
-![](docs/images/Tests.png)
+In order to install all dependencies (ganache, truffle ...), please do like the following
 
-# Instruction
+```
+npm install
 
-* ✔️ Le vote n'est pas secret
-* ✔️ Chaque électeur peut voir les votes des autres
-* ✔️ Le gagnant est déterminé à la majorité simple
-* ✔️ La proposition qui obtient le plus de voix l'emporte.
+// To install truffle globaly
+npm install -g truffle
 
-## 👉 Le processus de vote
-
-* ✔️ L'administrateur du vote enregistre une liste blanche d'électeurs identifiés par leur adresse Ethereum.
-* ✔️ L'administrateur du vote commence la session d'enregistrement de la proposition.
-* ✔️ Les électeurs inscrits sont autorisés à enregistrer leurs propositions pendant que la session d'enregistrement est active.
-* ✔️ L'administrateur de vote met fin à la session d'enregistrement des propositions.
-* ✔️ L'administrateur du vote commence la session de vote.
-* ✔️ Les électeurs inscrits votent pour leur proposition préférée.
-* ✔️ L'administrateur du vote met fin à la session de vote.
-* ✔️ L'administrateur du vote comptabilise les votes.
-* ✔️ Tout le monde peut vérifier les derniers détails de la proposition gagnante.
-
-## 👉 Les recommandations et exigences 
-
-* ✔️ Votre smart contract doit s’appeler “Voting”.
-* ✔️ Votre smart contract doit utiliser la dernière version du compilateur.
-* ✔️ L’administrateur est celui qui va déployer le smart contract.
-* ✔️ Votre smart contract doit définir les structures de données suivantes :
-
-```solidity
-struct Voter {
-    bool isRegistered;
-    bool hasVoted;
-    uint votedProposalId;
-}
-struct Proposal {
-    string description;
-    uint voteCount;
-}
+// To install ganache globaly
+npm install -g ganache-cli
 ```
 
-* ✔️ Votre smart contract doit définir une énumération qui gère les différents états d’un vote
+## Tests
 
-```solidity
-enum WorkflowStatus {
-    RegisteringVoters,
-    ProposalsRegistrationStarted,
-    ProposalsRegistrationEnded,
-    VotingSessionStarted,
-    VotingSessionEnded,
-    VotesTallied
-}
+To run the project tests suite, do the following
+
 ```
-* ✔️ Votre smart contract doit définir un uint winningProposalId qui représente l’id du gagnant ou une fonction getWinner qui retourne le gagnant.
-* ✔️ Votre smart contract doit importer le smart contract la librairie “Ownable” d’OpenZepplin.
-* ✔️ Votre smart contract doit définir les événements suivants :
-```solidity
-event VoterRegistered(address voterAddress);
-event WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus);
-event ProposalRegistered(uint proposalId);
-event Voted (address voter, uint proposalId);
+// Run ganache localy
+ganache-cli -h 127.0.0.1
+
+// Run migrations
+truffle migrate
+
+// Launch test suite
+truffle test
 ```
+
+![](docs/images/functional_tests.gif)
+
+- 33 tests passing
+- Every functions are tested 
+
+### VotingTest.js
+
+#### 1. Contract ownership
+
+- ✔ Contract ownership
+- ✔ Ownership has been transferred
+
+#### 2. Get voter informations
+
+- ✔ As a voter, I should not be able to get a vote if I am not registered
+- ✔ As a voter, I should be able to get my own vote
+- ✔ As a voter, I should be able to get others vote ⚠️
+
+#### 3. Get One proposal informations
+
+- ✔ As a voter, I should not be able to get a proposal if I am not registered
+- ✔ As a voter, I should be able to get a proposal informations
+
+### 4. As the owner, I should be able to update the workflow status
+
+- ✔ The workflow status must start with RegisteringVoters
+- ✔ Only startProposalsRegistering can be done with RegisteringVoters status
+- ✔ The workflow status must start with RegisteringVoters
+- ✔ Only endProposalsRegistering can be done with ProposalsRegistrationStarted status
+- ✔ The workflow status must start with ProposalsRegistrationStarted
+- ✔ Only startVotingSession can be done with ProposalsRegistrationEnded status
+- ✔ The workflow status must start with ProposalsRegistrationEnded
+- ✔ Only startVotingSession can be done with ProposalsRegistrationEnded status
+- ✔ The workflow status must start with VotingSessionStarted status
+
+### 5. As the owner, I should be able to add voters
+
+- ✔ Only the owner can add voters
+- ✔ A voter can not access voters information if he has not been registered
+- ✔ A voter can be registered
+- ✔ An address could not be registered more than once
+
+### 6. As a voter, I should be able to add a proposal
+
+- ✔ Only a voter can add a proposal
+- ✔ A voter can't add an empty proposal
+- ✔ A voter can add a proposal
+- ✔ A voter can add another proposal
+
+### 7. As a voter, I should be able to vote
+
+- ✔ Only a voter can vote
+- ✔ A voter can't vote on a wrong status
+- ✔ A voter can not vote on an inexisting proposal
+- ✔ A voter can vote on an existing proposal
+- ✔ A proposal should be incremented after a vote
+
+### 8. As the owner, I should be able to tally
+
+- ✔ Only the owner can tally
+- ✔ A owner can't tally on a wrong status
+- ✔ A owner can tally
+- ✔ The winningProposalID must be proposalIdLoremDolor after tally
+- ✔ The workflow status must be equal to VotesTallied after tally
+
+## Feature list 
+
+The list of feature for the project can be found [here](docs/features.md)
+    
