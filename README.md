@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/github/JeremieSamson/alyra_voting/badge.svg)](https://coveralls.io/github/JeremieSamson/alyra_voting)
 # Installation
 
 First you need to clone the project 
@@ -92,6 +93,7 @@ truffle test
 - ✔ A voter can't vote on a wrong status
 - ✔ A voter can not vote on an inexisting proposal
 - ✔ A voter can vote on an existing proposal
+- ✔ A voter can not vote another time
 - ✔ A proposal should be incremented after a vote
 
 ### 8. As the owner, I should be able to tally

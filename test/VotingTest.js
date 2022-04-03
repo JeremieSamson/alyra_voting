@@ -256,6 +256,10 @@ contract('Voting contract tests suite', function (accounts) {
             expect(voterAfterVoting.votedProposalId).to.be.bignumber.equal(proposalIdLoremDolor)
         })
 
+        it('A voter can not vote another time', async function () {
+            await expectRevert(this.Voting.setVote(proposalIdLoremDolor, { from: voter }), 'You have already voted')
+        })
+
         it('A proposal should be incremented after a vote', async function () {
             const loremIpsumProposal = await this.Voting.getOneProposal(proposalIdLoremIpsum, { from: voter })
             expect(loremIpsumProposal.voteCount).to.be.bignumber.equal(defaultValue)
