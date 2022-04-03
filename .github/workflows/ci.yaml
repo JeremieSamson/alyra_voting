@@ -20,31 +20,28 @@ jobs:
       - name: Run esnlint and solium
         run: make lint TTY=-T
 
-#  coverage:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - uses: actions/setup-node@v3
-#        with:
-#          node-version: '12'
-#
-#      - name: Install
-#        run: npm install
-#
-#      - name: Launch Ganache
-#        run: npx ganache-cli -h 127.0.0.1&
-#
-#      - name: Run truffle tests
-#        run: npx truffle test
-#
-#      - name: Coverage
-#        run: npx truffle run coverage
-#
-#      - name: Coveralls
-#        uses: coverallsapp/github-action@master
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Install
+        run: npm install
+
+      - name: Launch Ganache
+        run: npx ganache-cli -h 127.0.0.1&
+
+      - name: Coverage
+        run: node_modules/.bin/truffle run coverage
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   test:
     runs-on: ubuntu-latest
