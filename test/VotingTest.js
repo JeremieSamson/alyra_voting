@@ -41,7 +41,7 @@ contract('Voting contract tests suite', function (accounts) {
         })
 
         it('As a voter, I should not be able to add a proposal yet', async function () {
-            await expectRevert(this.Voting.addProposal("This will fail", { from: voter }), 'Proposals are not allowed yet')
+            await expectRevert(this.Voting.addProposal('This will fail', { from: voter }), 'Proposals are not allowed yet')
         })
 
         it('As a voter, I should be able to get my own vote', async function () {
