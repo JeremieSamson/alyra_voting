@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/JeremieSamson/alyra_voting/badge.svg)](https://coveralls.io/github/JeremieSamson/alyra_voting)
+[![Coverage Status](https://coveralls.io/repos/github/JeremieSamson/alyra_voting/badge.svg?branch=main)](https://coveralls.io/github/JeremieSamson/alyra_voting?branch=main)
 # Installation
 
 First you need to clone the project 

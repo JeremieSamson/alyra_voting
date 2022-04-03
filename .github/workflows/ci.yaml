@@ -9,17 +9,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build
-        run: make build
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
 
-      - name: Up containers
-        run: make up
+      - name: Install
+        run: npm install
 
-      - name: Install modules
-        run: make node_modules TTY=-T
+      - name: Run Solium
+        run: ./node_modules/.bin/solium --dir ./contracts/
 
-      - name: Run esnlint and solium
-        run: make lint TTY=-T
+      - name: Run ESLint
+        run: ./node_modules/.bin/eslint . --ext .js
 
   test_coverage:
     name: Test and coverage
