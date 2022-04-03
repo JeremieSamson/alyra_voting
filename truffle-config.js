@@ -8,7 +8,8 @@ module.exports = {
         docker: {
             host: 'ganache',
             port: 8545,
-            network_id: '*'
+            network_id: '*',
+            verbose: false
         }
     },
     mocha: {

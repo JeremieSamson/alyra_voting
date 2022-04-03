@@ -18,7 +18,7 @@ contract('Voting contract test suite', function (accounts) {
     const WorkflowStatusVotingSessionEnded = new BN(4)
     const WorkflowStatusVotesTallie = new BN(5)
 
-    describe('Contract ownership ', () => {
+    describe('Contract ownership', () => {
         before(async function () {
             this.Voting = await Voting.new({ from: owner })
         })
@@ -183,12 +183,12 @@ contract('Voting contract test suite', function (accounts) {
             await expectRevert(this.Voting.setVote(proposalIdLoremDolor, { from: voter }), 'Voting session havent started yet')
         })
 
-        it('A voter can not vote on a inexisting proposal', async function () {
+        it('A voter can not vote on an inexisting proposal', async function () {
             await this.Voting.startVotingSession()
             await expectRevert(this.Voting.setVote(new BN(42), { from: voter }), 'Proposal not found')
         })
 
-        it('A voter can vote on a existing proposal', async function () {
+        it('A voter can vote on an existing proposal', async function () {
             const votedProposal = await this.Voting.getOneProposal(proposalIdLoremDolor, { from: voter })
             expect(votedProposal.voteCount).to.be.bignumber.equal(defaultValue)
 
