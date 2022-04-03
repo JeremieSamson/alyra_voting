@@ -40,6 +40,10 @@ contract('Voting contract tests suite', function (accounts) {
             await expectRevert(this.Voting.getVoter(voter, { from: unregisteredVoter }), 'You\'re not a voter')
         })
 
+        it('As a voter, I should not be able to add a proposal yet', async function () {
+            await expectRevert(this.Voting.addProposal('This will fail', { from: voter }), 'Proposals are not allowed yet')
+        })
+
         it('As a voter, I should be able to get my own vote', async function () {
             const ownVote = await this.Voting.getVoter(voter, { from: voter })
             expect(ownVote.isRegistered).to.equal(true)
@@ -62,6 +66,10 @@ contract('Voting contract tests suite', function (accounts) {
             this.Voting.addVoter(voter)
             this.Voting.startProposalsRegistering()
             this.Voting.addProposal('Lorem Ipsum', { from: voter })
+        })
+
+        it('As the owner, I can\'t add new voters after starting proposal registration', async function () {
+            await expectRevert(this.Voting.addVoter(anotherVoter, { from: owner }), 'Voters registration is not open yet')
         })
 
         it('As a voter, I should not be able to get a proposal if I am not registered', async function () {
@@ -254,6 +262,10 @@ contract('Voting contract tests suite', function (accounts) {
             expect(voterAfterVoting.isRegistered).to.equal(true)
             expect(voterAfterVoting.hasVoted).to.equal(true)
             expect(voterAfterVoting.votedProposalId).to.be.bignumber.equal(proposalIdLoremDolor)
+        })
+
+        it('A voter can not vote another time', async function () {
+            await expectRevert(this.Voting.setVote(proposalIdLoremDolor, { from: voter }), 'You have already voted')
         })
 
         it('A proposal should be incremented after a vote', async function () {

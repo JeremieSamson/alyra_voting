@@ -4,61 +4,45 @@ on: [push]
 
 jobs:
   lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build
-        run: make build
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
 
-      - name: Up containers
-        run: make up
+      - name: Install
+        run: npm install
 
-      - name: Install modules
-        run: make node_modules TTY=-T
+      - name: Run Solium
+        run: ./node_modules/.bin/solium --dir ./contracts/
 
-      - name: Run esnlint and solium
-        run: make lint TTY=-T
+      - name: Run ESLint
+        run: ./node_modules/.bin/eslint . --ext .js
 
-#  coverage:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - uses: actions/setup-node@v3
-#        with:
-#          node-version: '12'
-#
-#      - name: Install
-#        run: npm install
-#
-#      - name: Launch Ganache
-#        run: npx ganache-cli -h 127.0.0.1&
-#
-#      - name: Run truffle tests
-#        run: npx truffle test
-#
-#      - name: Coverage
-#        run: npx truffle run coverage
-#
-#      - name: Coveralls
-#        uses: coverallsapp/github-action@master
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-  test:
+  test_coverage:
+    name: Test and coverage
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build
-        run: make build
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
 
-      - name: Up containers
-        run: make up
+      - name: Install
+        run: npm install
 
-      - name: Install modules
-        run: make node_modules TTY=-T
+      - name: Launch Ganache
+        run: npx ganache-cli -h 127.0.0.1&
 
-      - name: Run truffle tests
-        run: make truffle-test TTY=-T
+      - name: Coverage
+        run: node_modules/.bin/truffle run coverage
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
