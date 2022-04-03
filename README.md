@@ -38,10 +38,12 @@ truffle migrate
 truffle test
 ```
 
+- 36 tests passing
+- Every functions are tested 
+- 100% coverage
+
 ![](docs/images/functional_tests.gif)
 
-- 33 tests passing
-- Every functions are tested 
 
 ### VotingTest.js
 
@@ -53,11 +55,13 @@ truffle test
 #### 2. Get voter informations
 
 - ✔ As a voter, I should not be able to get a vote if I am not registered
+- ✔ As a voter, I should not be able to add a proposal yet
 - ✔ As a voter, I should be able to get my own vote
 - ✔ As a voter, I should be able to get others vote ⚠️
 
 #### 3. Get One proposal informations
 
+- ✔ As the owner, I can't add new voters after starting proposal registration
 - ✔ As a voter, I should not be able to get a proposal if I am not registered
 - ✔ As a voter, I should be able to get a proposal informations
 
