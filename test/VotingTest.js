@@ -2,7 +2,7 @@ const { expectRevert, expectEvent, BN } = require('@openzeppelin/test-helpers')
 const { expect } = require('chai')
 const Voting = artifacts.require('Voting')
 
-contract('Voting contract test suite', function (accounts) {
+contract('Voting', function (accounts) {
     const owner = accounts[0]
     const voter = accounts[1]
     const noVoter = accounts[2]

@@ -16,6 +16,12 @@ In order to install all dependencies (ganache, truffle ...), please do like the 
 
 ```
 npm install
+
+// To install truffle globaly
+npm install -g truffle
+
+// To install ganache globaly
+npm install -g ganache-cli
 ```
 
 ## Tests
@@ -23,7 +29,14 @@ npm install
 To run the project tests suite, do the following
 
 ```
-npm truffle test
+// Run ganache localy
+ganache-cli -h 127.0.0.1
+
+// Run migrations
+truffle migrate
+
+// Launch test suite
+truffle test
 ```
 
 ![](docs/images/test.gif)

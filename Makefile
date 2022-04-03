@@ -1,10 +1,10 @@
 DOCKER_COMPOSE?=docker-compose
-EXEC?=$(DOCKER_COMPOSE) exec $(TTY) truffle
+EXEC?=$(DOCKER_COMPOSE) exec $(TTY) node
 NODE?=node
-GANACHE?=/app/ganache-core.docker.cli.js
+GANACHE?=$(EXEC) ./node_modules/.bin/ganache
 TRUFFLE?=$(EXEC) truffle
 NPM?=$(EXEC) npm
-NPX?=$(EXEC) truffle
+NPX?=$(EXEC) npx
 SOLIUM?=$(EXEC) ./node_modules/.bin/solium
 ESLINT?=$(EXEC) ./node_modules/.bin/eslint
 
@@ -52,9 +52,6 @@ truffle-migrate-reset:
 
 truffle-test:
 	$(TRUFFLE) test --network docker
-
-truffle-coverage:
-	$(DOCKER_COMPOSE) exec coverage npx truffle run coverage
 
 lint: eslint solium
 

@@ -1,8 +1,8 @@
 version: '3.7'
 
 services:
-  truffle:
-    build: ./docker/truffle
+  node:
+    build: ./docker/node
     tty: true
     volumes:
       - .:/app
@@ -11,9 +11,3 @@ services:
     build: ./docker/ganache
     ports:
       - 8585:8585
-
-  coverage:
-    image: node:12-alpine
-    tty: true
-    volumes:
-      - .:/app
