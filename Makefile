@@ -61,10 +61,10 @@ lint: eslint solium
 solium:
 	$(SOLIUM) --dir ./contracts/
 
-solium:
+soliumfix:
 	$(SOLIUM) --dir ./contracts/ --fix
 
-esnlint:
+eslint:
 	$(ESLINT) . --ext .js
 
 eslintfix:
