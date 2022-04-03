@@ -1,5 +1,3 @@
-[![Coverage Status](https://coveralls.io/repos/github/JeremieSamson/alyra_voting/badge.svg)](https://coveralls.io/github/JeremieSamson/alyra_voting)
-
 # Installation
 
 First you need to clone the project 
@@ -8,7 +6,7 @@ First you need to clone the project
 git clone git@github.com:JeremieSamson/alyra_voting.git
 ```
 
-Then you will need to install the project dependencies, if you are familiar with docker there is a [special instruction file](docs/features.md) for it.
+Then you will need to install the project dependencies, if you are familiar with docker there is a [special instruction file](docs/docker.md) for it.
 
 ## Dependencies
 
