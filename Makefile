@@ -4,9 +4,10 @@ NODE?=node
 GANACHE?=$(EXEC) ./node_modules/.bin/ganache
 TRUFFLE?=$(EXEC) truffle
 NPM?=$(EXEC) npm
-NPX?=$(EXEC) npx
+NPX?=$(EXEC) npx npm
 SOLIUM?=$(EXEC) ./node_modules/.bin/solium
 ESLINT?=$(EXEC) ./node_modules/.bin/eslint
+NPM_REACT?=$(DOCKER_COMPOSE) exec $(TTY) react npm
 
 .PHONY: build
 
@@ -46,7 +47,7 @@ truffle-config.js:
 	$(TRUFFLE) init
 
 truffle-migrate:
-	$(TRUFFLE) migrate --network docker
+	$(TRUFFLE) migrate
 
 truffle-migrate-reset:
 	$(TRUFFLE) migrate --network docker --reset
@@ -67,3 +68,6 @@ eslint:
 
 eslintfix:
 	$(ESLINT) . --ext .js --fix
+
+react-start:
+	$(NPM_REACT) run start --prefix client
