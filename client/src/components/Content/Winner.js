@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
-import {NotificationManager} from "react-notifications";
 
 class Winner extends Component {
     render() {
-        const winningProposal = this.props.state.proposals.find(proposal => proposal.proposalId === this.props.state.winningProposalId);
+        let {proposals, winningProposalId} = this.props.state;
+
+        const winningProposal = proposals.find(proposal => proposal.proposalId === winningProposalId);
 
         return (
             <>

@@ -17,11 +17,11 @@ class AddProposalForm extends Component {
     }
 
     async handleSubmit() {
-        const contract = this.props.contract;
+        let {contract, currentAddress} = this.props.state;
         const submittedProposal = this.state.submittedProposal;
 
         try {
-            await contract.methods.addProposal(submittedProposal).send({ from: this.props.currentAddress });
+            await contract.methods.addProposal(submittedProposal).send({ from: currentAddress });
             NotificationManager.success('Proposal "' +submittedProposal+ '" has been added', 'New proposal', 2000);
         } catch (err) {
             NotificationManager.error('An error occured when adding your proposal', '', 2000);

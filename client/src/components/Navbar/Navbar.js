@@ -12,8 +12,8 @@ class Navbar extends Component {
                              className="d-inline-block align-top" alt=""/>
                             &nbsp;&nbsp;Alyra Voting
                     </a>
-                    <WorkflowStatus isOwner={this.props.isOwner} status={this.props.workflowStatus} address={this.props.currentAddress} contract={this.props.contract}/>
-                    <CurrentAddress address={this.props.currentAddress} isOwner={this.props.isOwner} voters={this.props.state.voters}/>
+                    <WorkflowStatus state={this.props.state}/>
+                    <CurrentAddress state={this.props.state}/>
                 </nav>
             </div>
         );

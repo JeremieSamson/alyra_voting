@@ -2,21 +2,23 @@ import React, { Component } from 'react'
 
 class WorkflowStatus extends Component {
     async handleClick() {
-        switch (this.props.status) {
+        let {workflowStatus, contract, currentAddress} = this.props.state;
+
+        switch (workflowStatus) {
             case "0":
-                await this.props.contract.methods.startProposalsRegistering().send({ from: this.props.address });
+                await contract.methods.startProposalsRegistering().send({ from: currentAddress });
                 break;
             case "1":
-                await this.props.contract.methods.endProposalsRegistering().send({from: this.props.address});
+                await contract.methods.endProposalsRegistering().send({from: currentAddress });
                 break;
             case "2":
-                await this.props.contract.methods.startVotingSession().send({from: this.props.address});
+                await contract.methods.startVotingSession().send({from: currentAddress });
                 break;
             case "3":
-                await this.props.contract.methods.endVotingSession().send({from: this.props.address});
+                await contract.methods.endVotingSession().send({from: currentAddress });
                 break;
             case "4":
-                await this.props.contract.methods.tallyVotes().send({from: this.props.address});
+                await contract.methods.tallyVotes().send({from: currentAddress });
                 break;
         }
 
@@ -24,9 +26,10 @@ class WorkflowStatus extends Component {
     }
 
     getStringWorkflow() {
+        let {workflowStatus} = this.props.state;
         let statusString = "";
 
-        switch (this.props.status) {
+        switch (workflowStatus) {
             case "0":
                 statusString = "Registering voters";
                 break;
@@ -53,9 +56,10 @@ class WorkflowStatus extends Component {
     }
 
     getButtonLabel() {
+        let {workflowStatus} = this.props.state;
         let labelButton = "";
 
-        switch (this.props.status) {
+        switch (workflowStatus) {
             case "0":
             case "1":
             case "2":
@@ -71,12 +75,14 @@ class WorkflowStatus extends Component {
     }
 
     render() {
-        if (this.props.isOwner) {
+        let {workflowStatus, isOwner} = this.props.state;
+
+        if (isOwner) {
             return (
                 <>
                     <div className="mr-sm-2">
                         <span>Current status: {this.getStringWorkflow()}</span><br/>
-                        {this.props.status < "5" ? <button onClick={this.handleClick.bind(this)} className="btn btn-success">{this.getButtonLabel()}</button> : ''}
+                        {workflowStatus < "5" ? <button onClick={this.handleClick.bind(this)} className="btn btn-success">{this.getButtonLabel()}</button> : ''}
                     </div>
                 </>
             );

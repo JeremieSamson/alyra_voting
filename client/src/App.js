@@ -101,9 +101,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Navbar state={this.state} currentAddress={this.state.currentAddress} workflowStatus={this.state.workflowStatus} isOwner={this.state.isOwner} contract={this.state.contract}/>
+        <Navbar state={this.state}/>
         <NotificationContainer/>
-        <Content state={this.state} workflowStatus={this.state.workflowStatus} isOwner={this.state.isOwner} contract={this.state.contract} currentAddress={this.state.currentAddress}/>
+        <Content state={this.state}/>
       </div>
     );
   }

@@ -17,11 +17,11 @@ class AddAddressForm extends Component {
     }
 
     async handleSubmit() {
-        const contract = this.props.contract;
+        let {contract, currentAddress} = this.props.state;
         const submittedAddress = this.state.submittedAddress;
 
         try {
-            await contract.methods.addVoter(submittedAddress).send({ from: this.props.currentAddress });
+            await contract.methods.addVoter(submittedAddress).send({ from: currentAddress });
             NotificationManager.success('Voter with address "' +submittedAddress+ '" has been added', 'New voter', 2000);
         } catch (err) {
             NotificationManager.error('An error occured when adding voter', '', 2000);
@@ -30,7 +30,9 @@ class AddAddressForm extends Component {
     }
 
     render() {
-        if (this.props.workflowStatus === "0") {
+        let {workflowStatus} = this.props.state;
+
+        if (workflowStatus === "0") {
             return (
                 <div className="card">
                     <div className="card-header">

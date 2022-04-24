@@ -15,10 +15,14 @@ class ProposalList extends Component {
             NotificationManager.error('An error occured when voting', '', 2000);
             console.log(err);
         }
+
+        window.location.reload();
     }
 
     render() {
-        if (this.props.state.proposals.length === 0) {
+        let {proposals} = this.props.state;
+
+        if (proposals.length === 0) {
             return <Info infoMessage="There is no proposal yet"/>;
         }
 
@@ -27,7 +31,7 @@ class ProposalList extends Component {
                 <>
                     <h1>List of proposals</h1>
                     <ul className="list-group">
-                        {this.props.state.proposals.map(proposal =>
+                        {proposals.map(proposal =>
                             <li className={this.props.vote !== undefined && this.props.vote.proposalId === proposal.proposalId ? "list-group-item list-group-item-success" : "list-group-item list-group-item-secondary"}>{proposal.description}
                                 <button className="icon-right" onClick={() => this.handleVote(proposal.proposalId)} disabled={this.props.vote !== undefined}>
                                     <FontAwesomeIcon icon={faArrowUp} />
