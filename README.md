@@ -1,4 +1,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/JeremieSamson/alyra_voting/badge.svg?branch=main)](https://coveralls.io/github/JeremieSamson/alyra_voting?branch=main)
+# Demo
+
+- The front app is deployed with heroku on [https://alyravoting.herokuapp.com](https://alyravoting.herokuapp.com/)
+- The smart contract is deployed on [kovan](https://kovan.etherscan.io/) on the address [0xBCd0a034222E20cC9073936309dae48514A421F3](https://kovan.etherscan.io/address/0xBCd0a034222E20cC9073936309dae48514A421F3)
+
 # Installation
 
 First you need to clone the project 

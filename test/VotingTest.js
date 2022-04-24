@@ -231,16 +231,16 @@ contract('Voting contract tests suite', function(accounts) {
     });
 
     it('Only a registered voter can vote', async function() {
-      await expectRevert(this.Voting.setVote(proposalIdLoremDolor, {from: unregisteredVoter}), 'You\'re not a voter');
+      await expectRevert(this.Voting.vote(proposalIdLoremDolor, {from: unregisteredVoter}), 'You\'re not a voter');
     });
 
     it('A voter can\'t vote on a wrong status', async function() {
-      await expectRevert(this.Voting.setVote(proposalIdLoremDolor, {from: voter}), 'Voting session havent started yet');
+      await expectRevert(this.Voting.vote(proposalIdLoremDolor, {from: voter}), 'Voting session havent started yet');
     });
 
     it('A voter can not vote on an inexisting proposal', async function() {
       await this.Voting.startVotingSession();
-      await expectRevert(this.Voting.setVote(new BN(42), {from: voter}), 'Proposal not found');
+      await expectRevert(this.Voting.vote(new BN(42), {from: voter}), 'Proposal not found');
     });
 
     it('A voter can vote on an existing proposal', async function() {
@@ -252,8 +252,8 @@ contract('Voting contract tests suite', function(accounts) {
       expect(voterBeforeVoting.hasVoted).to.equal(false);
       expect(voterBeforeVoting.votedProposalId).to.be.bignumber.equal(defaultValue);
 
-      const setVoteResult = await this.Voting.setVote(proposalIdLoremDolor, {from: voter});
-      expectEvent(setVoteResult, 'Voted', {
+      const voteResult = await this.Voting.vote(proposalIdLoremDolor, {from: voter});
+      expectEvent(voteResult, 'Voted', {
         voter: voter,
         proposalId: proposalIdLoremDolor,
       });
@@ -265,7 +265,7 @@ contract('Voting contract tests suite', function(accounts) {
     });
 
     it('A voter can not vote another time', async function() {
-      await expectRevert(this.Voting.setVote(proposalIdLoremDolor, {from: voter}), 'You have already voted');
+      await expectRevert(this.Voting.vote(proposalIdLoremDolor, {from: voter}), 'You have already voted');
     });
 
     it('A proposal should be incremented after a vote', async function() {
@@ -286,7 +286,7 @@ contract('Voting contract tests suite', function(accounts) {
       this.Voting.addProposal('Lorem Dolor', {from: voter});
       this.Voting.endProposalsRegistering();
       this.Voting.startVotingSession();
-      this.Voting.setVote(proposalIdLoremDolor, {from: voter});
+      this.Voting.vote(proposalIdLoremDolor, {from: voter});
     });
 
     it('Only the owner can tally', async function() {
